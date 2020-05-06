@@ -1,0 +1,18 @@
+%% Setting up the Wild_Type and Mutant Solns
+Model=readCbModel('Metaclau.mat');
+Model=changeRxnBounds(Model,'EX_CARBON-MONOXIDE' ,-31.6);
+Model=changeRxnBounds(Model,'EX_HYDROGEN-MOLECULE' ,-12.9);
+Model=changeObjective(Model,'EX_BIOMASS');
+%   This can be changed to a conditional form: If solver is not already
+%   gurobi, change it to gurobi
+changeCobraSolver('gurobi','all');
+Wild_Type=optimizeCbModel(Model,'max');
+Model_MT=changeObjective(Model,'EX_BUTANEDIOL');
+Mutant=optimizeCbModel(Model_MT);
+exchanges=cellfun(@isempty, strfind(Model.rxns, 'EX_'))==0;
+Ex_Rxns=Model.rxns(exchanges);Ex_MT=Mutant.x(exchanges);Ex_WT=Wild_Type.x(exchanges);
+Diff_Ind=Ex_MT~=Ex_WT;
+Exchange_Comp=table(Ex_Rxns(Diff_Ind),Ex_WT(Diff_Ind),Ex_MT(Diff_Ind),'VariableNames',{'Ex_Rxns','WT','MT'})
+clear Ex_MT Ex_WT Diff_Ind
+
+%% Buildng 
