@@ -15,4 +15,9 @@ Diff_Ind=Ex_MT~=Ex_WT;
 Exchange_Comp=table(Ex_Rxns(Diff_Ind),Ex_WT(Diff_Ind),Ex_MT(Diff_Ind),'VariableNames',{'Ex_Rxns','WT','MT'})
 clear Ex_MT Ex_WT Diff_Ind
 
-%% Buildng 
+%% Building The Constraints
+constrWT = struct('rxnList', {{'EX_BIOMASS'}}, 'rxnValues', Wild_Type.f, 'rxnBoundType', 'b');
+constrMT = struct('rxnList', {{'EX_BIOMASS', 'EX_BUTANEDIOL'}}, 'rxnValues', [0, Mutant.f],'rxnBoundType', 'bb');
+[minFluxesW, maxFluxesW, minFluxesM, maxFluxesM, ~, ~] = FVAOptForce(Model,constrWT, constrMT);
+FVA_Results=table(Model.rxns,minFluxesW, maxFluxesW, minFluxesM, maxFluxesM)
+%% Finding Musts
