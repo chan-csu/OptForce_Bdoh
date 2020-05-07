@@ -1,3 +1,7 @@
+function [optForceSets, posOptForceSets, typeRegOptForceSets, flux_optForceSets]=Opt_find(Model)
+if nargin==0
+    Model=readCbModel('Metaclau.mat');
+end
 %% Setting up the Wild_Type and Mutant Solns
 Model=readCbModel('Metaclau.mat');
 Model=changeRxnBounds(Model,'EX_CARBON-MONOXIDE' ,-31.6); %From Clustridium Kinetic Model paper
@@ -63,7 +67,7 @@ mustU = unique(union(mustUSet, mustUU));
 mustL = unique(union(mustLSet, mustLL));
 targetRxn = 'EX_BUTANEDIOL';
 biomassRxn = 'EX_BIOMASS';
-k = 1;
+k = 2;
 nSets = 1;
 constrOpt = struct('rxnList', {{'EX_BUTANEDIOL','EX_CARBON-MONOXIDE','EX_HYDROGEN-MOLECULE'}}, 'values', [Mutant.f,-31.6 ,-12.9]);
 [optForceSets, posOptForceSets, typeRegOptForceSets, flux_optForceSets] = ...
