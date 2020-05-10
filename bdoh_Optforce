@@ -58,22 +58,22 @@ excludedRxns = unique([mustUSet; mustLSet; exchangeRxns])
                'printExcel', 1, 'printText', 0, 'printReport', 0, 'keepInputs', 1, ...
                'verbose', 1);
 
-mustU
-mustL
+mustUSet
+mustLSet
 mustUU
 mustUL
 mustLL
+%% OptForce 
 mustU = unique(union(mustUSet, mustUU));
 mustL = unique(union(mustLSet, mustLL));
 targetRxn = 'EX_BUTANEDIOL';
 biomassRxn = 'EX_BIOMASS';
-k = 2;
-nSets = 1;
-constrOpt = struct('rxnList', {{'EX_BUTANEDIOL','EX_CARBON-MONOXIDE','EX_HYDROGEN-MOLECULE'}}, 'values', [Mutant.f,-31.6 ,-12.9]);
-[optForceSets, posOptForceSets, typeRegOptForceSets, flux_optForceSets] = ...
-    optForce(Model, targetRxn, biomassRxn, mustU, mustL, ...
-             minFluxesW, maxFluxesW, minFluxesM, maxFluxesM, ...
-             'k', k, 'nSets', nSets, 'constrOpt', constrOpt, ...
-             'runID', runID, 'outputFolder', 'OutputsOptForce', ...
-             'outputFileName', 'OptForce', 'printExcel', 1, 'printText', 1, ...
-             'printReport', 1, 'keepInputs', 1, 'verbose', 1);
+for i=1:3
+[optForceSets{i}, posOptForceSets{i}, typeRegOptForceSets{i}, flux_optForceSets{i}] = ...
+    optForce(Model, targetRxn, biomassRxn, mustU, mustL, minFluxesW, maxFluxesW, minFluxesM, maxFluxesM,'k',i,'nSets',20);
+end
+%% Showing the final results
+for i=1:3
+table(optForceSets{i}, posOptForceSets{i}, typeRegOptForceSets{i}, flux_optForceSets{i})
+end
+end
