@@ -74,6 +74,8 @@ for i=1:3
 end
 %% Showing the final results
 for i=1:3
-table(optForceSets{i}, posOptForceSets{i}, typeRegOptForceSets{i}, flux_optForceSets{i})
+    fprintf('Number of interventions = %d \n',i)
+table(optForceSets{i}, posOptForceSets{i}, typeRegOptForceSets{i}, flux_optForceSets{i},'VariableNames',{'optForceSets' ...
+    'indices','Type_of_Intervention','Fluxes'})
 end
 end
