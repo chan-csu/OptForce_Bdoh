@@ -83,9 +83,8 @@ end
 for i=1:size(Duble_int)
     if length(Model.rules{Duble_int(i,1)})~=0 && length(Model.rules{Duble_int(i,2)})~=0
         j=j+1;
-        Eff_out=Duble_int(j,:);
+        Eff_out(j,:)=Duble_int(i,:);
     end
 end
 end
         
-    
