@@ -1,17 +1,19 @@
-function [optForceSets, posOptForceSets, typeRegOptForceSets, flux_optForceSets,Eff_out]=Opt_find(Model)
+function [optForceSets, posOptForceSets, typeRegOptForceSets, flux_optForceSets,Eff_out]=Opt_find(Model,Uptakes)
 if nargin==0
     Model=readCbModel('Metaclau.mat');
 end
 %% Setting up the Wild_Type and Mutant Solns
 Model=readCbModel('Metaclau.mat');
-Model=changeRxnBounds(Model,'EX_CARBON-MONOXIDE' ,-31.6); %From Clustridium Kinetic Model paper
-Model=changeRxnBounds(Model,'EX_HYDROGEN-MOLECULE' ,-12.9);
+for i=1:length(Uptakes.rxns)
+    Model=changeRxnBounds(Model,Uptakes.rxns{i},Uptakes.values(i),Uptakes.type{i});
+end
 Model=changeObjective(Model,'EX_BIOMASS');
 %   This can be changed to a conditional form: If solver is not already
 %   gurobi, change it to gurobi
 changeCobraSolver('gurobi','all');
 Wild_Type=optimizeCbModel(Model,'max');
 Model_MT=changeObjective(Model,'EX_BUTANEDIOL');
+Model_MT=changeRxnBounds(Model_MT,'EX_BIOMASS',Wild_Type.f*0.1,'b');
 Mutant=optimizeCbModel(Model_MT);
 exchanges=cellfun(@isempty, strfind(Model.rxns, 'EX_'))==0;
 Ex_Rxns=Model.rxns(exchanges);Ex_MT=Mutant.x(exchanges);Ex_WT=Wild_Type.x(exchanges);
@@ -21,12 +23,12 @@ clear Ex_MT Ex_WT Diff_Ind
 
 %% Building The Constraints
 constrWT = struct('rxnList', {{'EX_BIOMASS'}}, 'rxnValues', Wild_Type.f, 'rxnBoundType', 'b');
-constrMT = struct('rxnList', {{'EX_BIOMASS', 'EX_BUTANEDIOL'}}, 'rxnValues', [0, Mutant.f],'rxnBoundType', 'bb');
+constrMT = struct('rxnList', {{'EX_BIOMASS', 'EX_BUTANEDIOL'}}, 'rxnValues', [Wild_Type.f*0.1, Mutant.f],'rxnBoundType', 'bb');
 [minFluxesW, maxFluxesW, minFluxesM, maxFluxesM, ~, ~] = FVAOptForce(Model,constrWT, constrMT);
 FVA_Results=table(Model.rxns,minFluxesW, maxFluxesW, minFluxesM, maxFluxesM)
 %% Finding Musts
 runID = 'OptForce_bdoh';
-constrOpt = struct('rxnList', {{'EX_BIOMASS','EX_BUTANEDIOL'}}, 'values', [0,Mutant.f]');
+constrOpt = struct('rxnList', {{'EX_BIOMASS','EX_BUTANEDIOL'}}, 'values', [Wild_Type.f*0.1,Mutant.f]');
 [mustLSet, pos_mustL] = findMustL(Model, minFluxesW, maxFluxesW, 'constrOpt', constrOpt, ...
                                   'runID', runID, 'outputFolder', 'OutputsFindMustL', ...
                                   'outputFileName', 'MustL' , 'printExcel', 1, 'printText', 0, ...
@@ -87,4 +89,4 @@ for i=1:size(Duble_int)
     end
 end
 end
-        
+     
