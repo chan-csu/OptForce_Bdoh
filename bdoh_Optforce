@@ -2,6 +2,10 @@ function [optForceSets, posOptForceSets, typeRegOptForceSets, flux_optForceSets,
 if nargin==0
     Model=readCbModel('Metaclau.mat');
 end
+% Uptakes is a struct. Uptakes.rxns is a cell containing the names of the reactions we want to constrain
+%Uptakes.values is the constrained flux of the reactions. it's a matrix
+%containing numbers. Uptakes.types is the type of constraints. it is a cell
+%contanining characters 'l', 'b', and 'u'
 %% Setting up the Wild_Type and Mutant Solns
 Model=readCbModel('Metaclau.mat');
 for i=1:length(Uptakes.rxns)
@@ -89,4 +93,3 @@ for i=1:size(Duble_int)
     end
 end
 end
-     
