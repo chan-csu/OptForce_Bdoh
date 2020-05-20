@@ -74,9 +74,10 @@ mustU = unique(union(mustUSet, mustUU));
 mustL = unique(union(mustLSet, mustLL));
 targetRxn = 'EX_BUTANEDIOL';
 biomassRxn = 'EX_BIOMASS';
+constrOpt = struct('rxnList', {{'EX_BIOMASS'}}, 'values', [0.1*Wild_Type.f]);
 for i=1:3
 [optForceSets{i}, posOptForceSets{i}, typeRegOptForceSets{i}, flux_optForceSets{i}] = ...
-    optForce(Model, targetRxn, biomassRxn, mustU, mustL, minFluxesW, maxFluxesW, minFluxesM, maxFluxesM,'k',i,'nSets',100);
+    optForce(Model, targetRxn, biomassRxn, mustU, mustL, minFluxesW, maxFluxesW, minFluxesM, maxFluxesM,'k',i,'nSets',100,'constrOpt', constrOpt);
 end
 %% Showing the final results
 for i=1:3
@@ -93,3 +94,5 @@ for i=1:size(Duble_int)
     end
 end
 end
+        
+    
