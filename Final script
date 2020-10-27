@@ -102,37 +102,124 @@ for i=1:size(optForceSets{1,3},1)
 end
             
         
-        
-
-% Temp=optForceSets{1,1};
-% Temp=Mapping_Vect(ismember(Mapping_Vect(:,1),Temp(find(ismember(optForceSets{1,1},Mapping_Vect(:,1))))),2)
-% First_Order_Core(:,1)=find(ismember(model.rxns,Temp))
-% Temp2=typeRegOptForceSets{1,1};
-% First_Order_Core(:,2)=Temp2(find(ismember(optForceSets{1,1},Mapping_Vect(:,1))),1)
-% 
-
-
-
 %% First Order Interventions
 Upregulation_Vect=[1.1 1.3 1.5];
 Downregulation_Vect=[0.9 0.7 0.5];
-Knockout_Vect=[0];
-uptake_rxns = [2;3]; %[1 - CO Uptake; 2 - H2 Uptake]                        % INPUT elementary rxn index for uptake rxns constrained for DAE 
-uptake_values = [Uptakes.values{1};Uptakes.values{2}];
+Knockout_Vect=[0 0 0];
+uptake_rxns = [1;2]; %[1 - CO Uptake; 2 - H2 Uptake]                        % INPUT elementary rxn index for uptake rxns constrained for DAE 
+uptake_values = [-18;-12 ];                                           % INPUT uptake fluxes for CO and H2 gases.  Current values are experimental values at high biomass concentration.
 
-Base_BDOH=
+perturbed_rxn = [1];                                                         % rxn # for enzyme to be changed; = [] if no enzyme change
+expression_level = [1];                                                      % = 1 if no enzyme change; = 0 if knockout; > 1 if overexpression; < 1 if underexpression
+t_interval = 0:5e2;                                                         % INPUT - time interval for DAE integration
 
-for i=1:size(First_Order_Core,1)
-    if First_Order_Core(i,2)==0
-        perturbed_rxn=First_Order_Core(i,1);
-        expression_level = [0];
-        t_interval = 0:5e4;                                                         % INPUT - time interval for DAE integration
-         save_results = 1;                                                           % 1-save results as matlab file; 0-do not save results
-         if save_results
-            file_save_name = 'TEST_results_First_Order_'+num2str(i);                                        % INPUT desired name of results file
-         end
-        [solutions, complete_times, ode_warn_flags, slope_norms] = ... 
+    save_results = 0;                                                           % 1-save results as matlab file; 0-do not save results
+    if save_results
+        file_save_name = 'TEST_results';                                        % INPUT desired name of results file
+    end
+
+
+
+    
+    [solutions, complete_times, ode_warn_flags, slope_norms] = ... 
         perturb_Ksets(model, All_K_final, All_fractions_final, ...
         t_interval, uptake_rxns, uptake_values, perturbed_rxn, ...
         expression_level);
+           
+Base_BDOH=mean(solutions(62,:));
+
+for i=1:size(First_Order_Core,1)
+    for j=1:length(Upregulation_Vect)
+        if First_Order_Core(i,2)==0
+            perturbed_rxn=[First_Order_Core(i,1)];
+            expression_level = Knockout_Vect(j);
+        elseif First_Order_Core(i,2)==1
+            perturbed_rxn=[First_Order_Core(i,1)];
+            expression_level = Downregulation_Vect(j);
+        else
+            perturbed_rxn=[First_Order_Core(i,1)];
+            expression_level = Upregulation_Vect(j);
+        end
+    [solutions, complete_times, ode_warn_flags, slope_norms] = ... 
+        perturb_Ksets(model, All_K_final, All_fractions_final, ...
+        t_interval, uptake_rxns, uptake_values, perturbed_rxn, ...
+        expression_level);
+        First_order_results(:,i,j)=solutions(62,:)
+    end
+end
+
+for i=1:size(Second_Order_Core,1)
+    for j=1:length(Upregulation_Vect)
+        if Second_Order_Core(i,2)==0
+            perturbed_rxn(1)=[Second_Order_Core(i,1)];
+            expression_level(1) = Knockout_Vect(j);
+        elseif Second_Order_Core(i,2)==1
+            perturbed_rxn(1)=[Second_Order_Core(i,1)];
+            expression_level(1) = Downregulation_Vect(j);
+        else
+            perturbed_rxn(1)=[Second_Order_Core(i,1)];
+            expression_level(1)= Upregulation_Vect(j)
+        end
+        
+        if Second_Order_Core(i,4)==0
+            perturbed_rxn(2)=[Second_Order_Core(i,3)];
+            expression_level(2) = Knockout_Vect(j);
+        elseif Second_Order_Core(i,2)==1
+            perturbed_rxn(2)=[Second_Order_Core(i,3)];
+            expression_level(2) = Downregulation_Vect(j);
+        else
+            perturbed_rxn(2)=[Second_Order_Core(i,3)];
+            expression_level(2) = Upregulation_Vect(j);
+        end
+    [solutions, complete_times, ode_warn_flags, slope_norms] = ... 
+        perturb_Ksets(model, All_K_final, All_fractions_final, ...
+        t_interval, uptake_rxns, uptake_values, perturbed_rxn, ...
+        expression_level);
+        Second_order_results(:,i,j)=solutions(62,:)
+    end
+end
+
+
+for i=1:size(Third_Order_Core,1)
+    for j=1:length(Upregulation_Vect)
+        if Third_Order_Core(i,2)==0
+            perturbed_rxn(1)=[Third_Order_Core(i,1)];
+            expression_level(1) = Knockout_Vect(j)
+        elseif Third_Order_Core(i,2)==1
+            perturbed_rxn(1)=[Third_Order_Core(i,1)];
+            expression_level(1) = Downregulation_Vect(j)
+        else
+            perturbed_rxn(1)=[Third_Order_Core(i,1)];
+            expression_level(1)= Upregulation_Vect(j)
+        end
+        
+        if Third_Order_Core(i,4)==0
+            perturbed_rxn(2)=[Third_Order_Core(i,3)];
+            expression_level(2) = Knockout_Vect(j)
+        elseif Third_Order_Core(i,4)==1
+            perturbed_rxn(2)=[Third_Order_Core(i,3)];
+            expression_level(2) = Downregulation_Vect(j)
+        else
+            perturbed_rxn(2)=[Third_Order_Core(i,3)];
+            expression_level(2) = Upregulation_Vect(j)
+        end
+        
+        if Third_Order_Core(i,6)==0
+            perturbed_rxn(3)=[Third_Order_Core(i,5)];
+            expression_level(3) = Knockout_Vect(j)
+        elseif Third_Order_Core(i,6)==1
+            perturbed_rxn(3)=[Third_Order_Core(i,5)];
+            expression_level(3) = Downregulation_Vect(j)
+        else
+            perturbed_rxn(3)=[Third_Order_Core(i,5)];
+            expression_level(3) = Upregulation_Vect(j)
+        end
+        
+        
+    [solutions, complete_times, ode_warn_flags, slope_norms] = ... 
+        perturb_Ksets(model, All_K_final, All_fractions_final, ...
+        t_interval, uptake_rxns, uptake_values, perturbed_rxn, ...
+        expression_level);
+        Third_order_results(:,i,j)=solutions(62,:)
+    end
 end
