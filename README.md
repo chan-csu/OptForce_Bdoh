@@ -5,7 +5,7 @@ Parsa96@colostate.edu \
 ***This project started May-2020, but there has been changes to the structure of
 the files. This ReadMe file reflects the latest changes.***
 
-##Introduction
+#Introduction
 
 This repository contains the work for predicting effective strategies for 2,3-Butanediol
 over production in C. autoethanogenum. First a genome scale metabolic model is used
