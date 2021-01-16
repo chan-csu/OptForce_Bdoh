@@ -1,0 +1,30 @@
+READ ME
+
+Net Stoichiometric Core Model of C. autoethanogenum:
+model_core.mat
+
+Experimental_Data: MATLAB data file containing experimental data used for screening kinetic ensemble
+
+1. To generate and screen ensemble of kinetic models:
+Open TEST_SCRIPT and input elementary model, reference state, ensemble size, and screening parameters.  Example values have been provided.
+
+2. Final 18 parameter set solution stored in 'Clostridium autoethanogenum kinetic ensemble solution' folder
+Final 18 parameter sets stored as 'Final_Kinetic_Ensemble.mat'
+Edit 'TEST_SCRIPT_perturb_final_ensemble.m' file to perturb final ensemble.  You can select enzyme to perturb and if you want to
+predict overexpression, underexpression, or a knockout by setting parameter defined in the top of the script. You can
+also change gas uptake flux values to generate kinetic parameter predictions for differnt uptake ratios.
+
+4. Folder descriptions:
+    a. 'Clostridium autoethanogenum kinetic ensemble solution' - final kinitic ensemble model (18 unique kinetic parameter sets) and 
+	scripts for interrogating them
+
+    b. 'Ensemble Modeling Scripts' - scripts for generating initial ensemble and screening kinetic parameter sets
+
+    c. 'Reference Conditions' - MATLAB data files containing FBA generated flux solutions for each biomass concentration reference 
+	state
+
+Portions of ensemble modeling code was adapted from MATLAB scripts provided by the Liao and Maranas groups:
+1. Rizk, M. L., and J. C. Liao. 2009. Ensemble modeling and related mathematical modeling of metabolic networks. Journal of the Taiwan Institute of Chemical Engineers 40:595-601.
+2. Tan, Y., J. G. Rivera, C. A. Contador, J. A. Asenjo, and J. C. Liao. 2011. Reducing the allowable kinetic space by constructing ensemble of dynamic models with the same steady-state flux. Metab. Eng. 13:60-75.
+3. Khodayari, A., A. R. Zomorrodi, J. C. Liao, and C. D. Maranas. 2014. A kinetic model of Escherichia coli core metabolism satisfying multiple sets of mutant flux data. Metab. Eng. 25:50-62.
+4. Greene, J. L., Wäechter, A., Tyo, K. E., & Broadbelt, L. J. (2017). Acceleration Strategies to Enhance Metabolic Ensemble Modeling Performance. Biophysical Journal, 113(5), 1150-1162.
