@@ -3,7 +3,7 @@ Parsa96@colostate.edu \
 1/16/2021
 
 ***This project started May-2020, but there has been changes to the structure of
-the files. This ReadMe file reflects the latest changes.***
+the files. This ReadMe file reflects the latest changes.***  
 
 #Introduction
 
@@ -14,4 +14,4 @@ Then this predictions are mapped to the existing kinetic model, Greene et al., t
 find the verify the results with and independent method. "Final_Script.m" includes
 the whole pipeline, and it calls different functions, including the kinetic model.  \
 
-To check that how
+To check for some obvious interventions, and see why they do not appear in OptForce results, Please open Interv_Check matlab live script file.
