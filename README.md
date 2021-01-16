@@ -14,4 +14,4 @@ Then this predictions are mapped to the existing kinetic model, Greene et al., t
 find the verify the results with and independent method. "Final_Script.m" includes
 the whole pipeline, and it calls different functions, including the kinetic model.  \
 
-To check for some obvious interventions, and see why they do not appear in OptForce results, Please open Interv_Check matlab live script file.
+To check for some obvious interventions, and see why they do not appear in OptForce results, please open Interv_Check MATLAB live script file.
