@@ -22,13 +22,17 @@ function [solutions, complete_times, ode_warn_flags, slope_norms] = ...
     
     %for x = 1:n_Ksets
 
-    parfor x = 1:n_Ksets
+    for x = 1:n_Ksets
+        Perts=[];
+        Exps=[];
         initial_conc_perturbed = [ones(n_metabs,1); All_fractions(:,x)];
-        for i=1:length(perturbed_rxn)
+        for i=length(perturbed_rxn)
+            Perts=[Perts;initial_conc_perturbed(rxn_ind_tmp2{i})];
+            Exps=[Exps;expression_level(i)*ones(length(initial_conc_perturbed(rxn_ind_tmp2{i})),1)];
         initial_conc_perturbed(rxn_ind_tmp2{i}) = ...
             initial_conc_perturbed(rxn_ind_tmp2{i})*expression_level(i);
         end
-               
+        initial_conc_perturbed=initial_conc_perturbed(Perts)      
         [solutions(:,x), complete_times(x), ode_warn_flags(x), ...
             slope_norms(x)] = calculate_rates(Network_Data, t_interval, ...
             All_K(:,x), initial_conc_perturbed, uptake_rxns, uptake_values);
