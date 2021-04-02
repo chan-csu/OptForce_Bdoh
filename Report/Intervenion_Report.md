@@ -22,6 +22,6 @@ The reason for choosing this was to be consistent with previously published expe
 Experimental Data:
 
 
-| Reference	| qCO2 (mmol/gCDW/h) | qH2 (mmol/gCDW/h) |  qAcet (mmol/gCDW/h)	| qetoh (mmol/gCDW/h) | qBDO (mmol/gCDW/h)| u(h-1)
+| Reference	| qCO2 (mmol/gCDW/h) | qH2 (mmol/gCDW/h) |  qAcet (mmol/gCDW/h)	| qetoh (mmol/gCDW/h) | qBDO (mmol/gCDW/h)| u(h-1)|
 | :-------: | :-------: | :-------: | :-------: | :-------: | :-------: | :-------: |
 | Valgepea 2018 |	-20.042 |	2.125 |	-33.042 |	1.083 |	9.042	| 0 |	0.04|
