@@ -79,38 +79,25 @@ First_order_Rxn = [First_order_Rxn;{'WT'}]
 First_order_Intervent = [First_order_Intervent 0]
 %clear 
 clf
-subplot(2,3,1)
-h1 = heatmap(First_order_results(:,:,1));
+subplot(2,1,1)
+h1 = heatmap(First_order_results(:,:,3));
 h1.XDisplayLabels = First_order_Rxn;
 h1ip = get(h1,'InnerPosition');
 
 %Plot the type of intevention of each reaction suggested by Optforce
-subplot(2,3,4)
+subplot(2,1,2)
 h2 = heatmap(First_order_Intervent);
 h2.XDisplayLabels = First_order_Rxn;
 set(h2, 'InnerPosition', [h1ip(1) 0.45 h1ip(3)-0.055 0.025]); 
 
-%Plot the BDO reaction flux according to each intervention and expression
-%regulation level 2
-subplot(2,3,2)
-h3 = heatmap(First_order_results(:,:,2));
-h3.XDisplayLabels = First_order_Rxn;
-h3ip = get(h3,'InnerPosition');
+[p,tbl,stats] = anova1(First_order_results(:,:,3));
+[c,m,h,gnames] = multcompare(stats);
 
-subplot(2,3,5)
-h4 = heatmap(First_order_Intervent);
-h4.XDisplayLabels = First_order_Rxn;
-set(h4, 'InnerPosition', [h3ip(1) 0.45 h3ip(3)-0.055 0.025]); 
 
-%Plot the BDO reaction flux according to each intervention and expression
-%regulation level 3
-subplot(2,3,3)
-h5 = heatmap(First_order_results(:,:,3));
-h5.XDisplayLabels = First_order_Rxn;
-h5ip = get(h5,'InnerPosition');
-
-subplot(2,3,6)
-h6 = heatmap(First_order_Intervent);
-h6.XDisplayLabels = First_order_Rxn;
-set(h6, 'InnerPosition', [h5ip(1) 0.45 h5ip(3)-0.055 0.025]); 
-
+Second_order_Rxn_A = model.rxns(Second_Order_Core(:,1));
+Second_order_Rxn_A=[Second_order_Rxn_A;{'WT'}]
+Second_order_Rxn_B = model.rxns(Second_Order_Core(:,1));
+Second_order_Rxn_B=[Second_order_Rxn_B;{'WT'}]
+Second_order_Rxn_B = model.rxns(Second_Order_Core(:,3));
+Second_order_Intervent_A = Second_Order_Core(:,2)';
+Second_order_Intervent_B = Second_Order_Core(:,4)';
