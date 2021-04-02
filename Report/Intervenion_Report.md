@@ -173,7 +173,7 @@ end
 ```
 For First order interventions: 
 
-** Heatmaps **
+**Heatmaps**
 
 ```
 
