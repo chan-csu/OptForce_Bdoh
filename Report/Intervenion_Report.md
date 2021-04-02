@@ -196,5 +196,5 @@ set(h2, 'InnerPosition', [h1ip(1) 0.45 h1ip(3)-0.055 0.025]);
 
 ```
 
-! [First_Order_heatmap] (https://github.com/chan-csu/OptForce_Bdoh/blob/master/Report/First_Order_Heatmap.jpg)
+![First_Order_heatmap](https://github.com/chan-csu/OptForce_Bdoh/blob/master/Report/First_Order_Heatmap.jpg)
 
