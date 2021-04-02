@@ -90,3 +90,5 @@ h2 = heatmap(First_order_Intervent);
 h2.XDisplayLabels = First_order_Rxn;
 set(h2, 'InnerPosition', [h1ip(1) 0.45 h1ip(3)-0.055 0.025]); 
 
+[p,tbl,stats] = anova1(First_order_results(:,:,3));
+[c,m,h,gnames] = multcompare(stats);
