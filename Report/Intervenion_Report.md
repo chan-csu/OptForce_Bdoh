@@ -319,7 +319,47 @@ From this step, 2 third order intervention is detected:
 
 One question is how other important metabolite fluxes change with these interventions. The following block answers that question:
 
+```
+
+uptake_rxns = [1;2]; %[1 - CO Uptake; 2 - H2 Uptake]                        % INPUT elementary rxn index for uptake rxns constrained for DAE 
+uptake_values = [Uptakes.values{1};Uptakes.values{2} ];                                           % INPUT uptake fluxes for CO and H2 gases.  Current values are experimental values at high biomass concentration.
+
+perturbed_rxn = [29];                                                         % rxn # for enzyme to be changed; = [] if no enzyme change
+expression_level = [2];                                                      % = 1 if no enzyme change; = 0 if knockout; > 1 if overexpression; < 1 if underexpression
+t_interval = 0:5e2;                                                         % INPUT - time interval for DAE integration
+
+    save_results = 0;                                                           % 1-save results as matlab file; 0-do not save results
+    if save_results
+        file_save_name = 'TEST_results';                                        % INPUT desired name of results file
+    end
 
 
+
+    
+    [solutions, complete_times, ode_warn_flags, slope_norms] = ... 
+        perturb_Ksets(model, All_K_final, All_fractions_final, ...
+        t_interval, uptake_rxns, uptake_values, perturbed_rxn, ...
+        expression_level);
+
+Kin_Model_Indices=[1 3 2 58 54 62 64 ]
+T=array2table(solutions(Kin_Model_Indices,:))
+T.Properties.RowNames=model.rxns(Kin_Model_Indices)
+
+>>>
+
+T =
+
+  7×18 table
+
+                    Var1        Var2        Var3       Var4        Var5         Var6         Var7       Var8        Var9       Var10       Var11       Var12       Var13       Var14       Var15       Var16       Var17       Var18  
+                  ________    ________    ________    _______    ________    __________    ________    _______    ________    ________    ________    ________    ________    ________    ________    ________    ________    ________
+
+    EX_co          -20.042     -20.042     -20.042    -20.042     -20.042       -20.042     -20.042    -20.042     -20.042     -20.042     -20.042     -20.042     -20.042     -20.042     -20.042     -20.042     -20.042     -20.042
+    EX_co2          4.1653       3.846      2.4871     3.7134      3.3444       -1.0135      4.4383     4.2701       3.327      3.7676      3.2818      4.0642      3.6095      2.1347      4.4669      4.3336      3.6442      3.0801
+    EX_h2          -33.042     -33.042     -33.042    -33.042     -33.042       -33.042     -33.042    -33.042     -33.042     -33.042     -33.042     -33.042     -33.042     -33.042     -33.042     -33.042     -33.042     -33.042
+    EX_ac           5.4925      4.3621      4.4716     4.2379      3.7611     0.0025362      3.8284     3.4852      4.3914      3.2449      5.1128       4.064      4.7102      5.3682      4.4285      4.4546      3.9932      5.3993
+    EX_etoh         1.6866      2.4629      2.9538     2.2529      3.4321      0.069195      2.6112     2.9166      2.2006      3.7107      1.9565      2.5622      2.0058      2.1607      2.1265      2.2216      2.9281       2.028
+    EX_bdoh        0.03979     0.10366    0.091711    0.15644    0.047319    1.1216e-07    0.081596    0.10593     0.10114     0.11823     0.14026    0.067976     0.14917     0.12378     0.16187     0.12737     0.10042     0.10046
+    EX_biomass    0.017218    0.032191    0.029395    0.03154    0.022193    5.6673e-05    0.022987    0.02689    0.030683    0.016505    0.027154    0.026301    0.030764    0.033653    0.020412    0.025948    0.023239    0.027794
 
 
