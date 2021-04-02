@@ -209,4 +209,57 @@ From the heatmap 'PFOR' enzyme upregualtion seems like a candidate. To be more c
 
 ![First_Order_ANOVA](https://github.com/chan-csu/OptForce_Bdoh/blob/master/Report/ANOVA_First.jpg)
 
-As it can be seen, PFOR upregulation results in significantly higher bdoh production.
+As it can be seen, PFOR upregulation results in significantly higher bdoh production with blue showing wild type bdoh production.
+
+Same for Second and Third order interventions:
+
+```
+
+Second_order_Rxn_A = model.rxns(Second_Order_Core(:,1));
+Second_order_Rxn_A=[Second_order_Rxn_A;{'WT'}]
+Second_order_Rxn_B = model.rxns(Second_Order_Core(:,3));
+Second_order_Rxn_B=[Second_order_Rxn_B;{'WT'}]
+Second_order_Intervent_A = Second_Order_Core(:,2)';
+Second_order_Intervent_A=[Second_order_Intervent_A 0];
+Second_order_Intervent_B = Second_Order_Core(:,4)';
+Second_order_Intervent_B=[Second_order_Intervent_B 0];
+
+subplot(3,1,1)
+h1 = heatmap(Second_order_results(:,:,3));
+h1ip = get(h1,'InnerPosition');
+
+%Plot the type of intevention of each reaction A suggested by Optforce
+subplot(3,1,2)
+h2 = heatmap(Second_order_Intervent_A);
+h2.ColorLimits = [0 2];
+h2.XDisplayLabels = Second_order_Rxn_A;
+set(h2, 'InnerPosition', [h1ip(1) 0.65 h1ip(3)-0.055 0.025]); 
+
+%Plot the type of intevention of each reaction B suggested by Optforce
+subplot(3,1,3)
+h3 = heatmap(Second_order_Intervent_B);
+h3.ColorLimits = [0 2];
+h3.XDisplayLabels = Second_order_Rxn_B;
+set(h3, 'InnerPosition', [h1ip(1) 0.55 h1ip(3)-0.055 0.025]);
+
+[p,tbl,stats] = anova1(Second_order_results(:,:,3));
+[c,m,h,gnames] = multcompare(stats);
+
+```
+![First_Order_ANOVA](https://github.com/chan-csu/OptForce_Bdoh/blob/master/Report/Heatmap_Second.jpg)
+
+![First_Order_ANOVA](https://github.com/chan-csu/OptForce_Bdoh/blob/master/Report/ANOVA_Second.jpg)
+
+
+Three second order interventions are detected to be significant:
+
+{'ACLDC'} --> Upregulation , {'FBP' } --> Knockout
+
+
+{'BTDDx'} --> Upregulation,  {'PFOR' } --> Upregulation
+
+
+{'ACLS' } --> Upregulation,  {'GLUD'} --> Knockout
+
+
+
