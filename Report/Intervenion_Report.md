@@ -11,8 +11,7 @@ ideal tools for examining these interventions since they are directly dealing wi
 
 * We used the following experimental condition for both metaclau, and the kinetic model:
 
-| Reference  | Addition experimental factor | 
-| :---------: | :-----------------------------: |
- qH2 (mmol/gCDW/h)	qAcet (mmol/gCDW/h)	qetoh (mmol/gCDW/h)	qBDO (mmol/gCDW/h)	(h-1)
-Valgepea 2018	/	high-H2 CO (LBC  i.e. 0.5 gCDW/)	15% CO; 45% H2; 40% Ar	-20.042	2.125	-33.042	1.083	9.042	0	0.04
-Abbreviation |	gas mix	| qCO(mmol/gCDW/h)	qCO2 (mmol/gCDW/h)
+| Reference  | Addition experimental factor | qH2 (mmol/gCDW/h) |qCO2 (mmol/gCDW/h)|
+| :---------: | :-----------------------------: | :----------: | :-----: |
+| Valgepea 2018|	high-H2 CO (LBC  i.e. 0.5 gCDW/)	15% CO; 45% H2; 40% Ar|	-20.042 | -33.042|	1.083	9.042	0	0.04
+
