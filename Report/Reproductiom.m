@@ -121,3 +121,6 @@ h3.ColorLimits = [0 2];
 h3.XDisplayLabels = Second_order_Rxn_B;
 set(h3, 'InnerPosition', [h1ip(1) 0.55 h1ip(3)-0.055 0.025]);
 
+[p,tbl,stats] = anova1(Second_order_results(:,:,3));
+[c,m,h,gnames] = multcompare(stats);
+
