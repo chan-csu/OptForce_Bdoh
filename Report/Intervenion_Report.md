@@ -254,7 +254,11 @@ set(h3, 'InnerPosition', [h1ip(1) 0.55 h1ip(3)-0.055 0.025]);
 Three second order interventions are detected to be significant:
 
 {'ACLDC'} --> Upregulation , {'FBP' } --> Knockout
+
+
 {'BTDDx'} --> Upregulation,  {'PFOR' } --> Upregulation
+
+
 {'ACLS' } --> Upregulation,  {'GLUD'} --> Knockout
 
 
