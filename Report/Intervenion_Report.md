@@ -261,5 +261,65 @@ Three second order interventions are detected to be significant:
 
 {'ACLS' } --> Upregulation,  {'GLUD'} --> Knockout
 
+And, third order interventions:
+
+```
+
+Third_order_Rxn_A = model.rxns(Third_Order_Core(:,1));
+Third_order_Rxn_A = [Third_order_Rxn_A;{'WT'}]
+Third_order_Rxn_B = model.rxns(Third_Order_Core(:,3));
+Third_order_Rxn_B = [Third_order_Rxn_B;{'WT'}]
+Third_order_Rxn_C = model.rxns(Third_Order_Core(:,5));
+Third_order_Rxn_C = [Third_order_Rxn_C;{'WT'}]
+Third_order_Intervent_A = Third_Order_Core(:,2)';
+Third_order_Intervent_A =[Third_order_Intervent_A  0]
+Third_order_Intervent_B = Third_Order_Core(:,4)';
+Third_order_Intervent_B =[Third_order_Intervent_B  0]
+Third_order_Intervent_C = Third_Order_Core(:,6)';
+Third_order_Intervent_C =[Third_order_Intervent_C  0]
+
+subplot(4,1,1)
+h1 = heatmap(Third_order_results(:,:,3));
+h1ip = get(h1,'InnerPosition');
+
+%Plot the type of intevention of each reaction A suggested by Optforce
+subplot(4,1,2)
+h2 = heatmap(Third_order_Intervent_A);
+h2.ColorLimits = [0 2];
+h2.XDisplayLabels = Third_order_Rxn_A;
+set(h2, 'InnerPosition', [h1ip(1) 0.65 h1ip(3)-0.055 0.025]); 
+
+%Plot the type of intevention of each reaction B suggested by Optforce
+subplot(4,1,3)
+h3 = heatmap(Third_order_Intervent_B);
+h3.ColorLimits = [0 2];
+h3.XDisplayLabels = Third_order_Rxn_B;
+set(h3, 'InnerPosition', [h1ip(1) 0.55 h1ip(3)-0.055 0.025]);
+
+subplot(4,1,4)
+h4 = heatmap(Third_order_Intervent_C);
+h4.ColorLimits = [0 2];
+h4.XDisplayLabels = Third_order_Rxn_C;
+set(h4, 'InnerPosition', [h1ip(1) 0.45 h1ip(3)-0.055 0.025]);
+
+[p,tbl,stats] = anova1(Third_order_results(:,:,3));
+[c,m,h,gnames] = multcompare(stats);
+
+```
+![First_Order_ANOVA](https://github.com/chan-csu/OptForce_Bdoh/blob/master/Report/ANOVA_Third.jpg)
+
+![First_Order_ANOVA](https://github.com/chan-csu/OptForce_Bdoh/blob/master/Report/Heatmap_Third.jpg)
+
+From this step, 2 third order intervention is detected:
+
+{'ACLS' } --> Upregulation, {'BTDDx'} --> Upregulation, {'PFOR'} --> Upregulation
+
+{'ACLDC'} --> Upregulation,    {'ACLS' } --> Upregulation,  {'PFOR'} -->  Upregulation
+
+
+One question is how other important metabolite fluxes change with these interventions. The following block answers that question:
+
+
+
 
 
