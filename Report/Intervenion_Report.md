@@ -144,4 +144,57 @@ ans =
 
 ```
 This is the highest theoretical bdoh production with the same uptake rates. 
+The outputs of the pipeline includes First, Second, and Third order interventions results on the kinetic model. This indicates that only some of the results are significantly higher than wild type bdoh production. Also, some of the bdoh results are lost in the process of mapping simply because that reaction does not exist in the kinetic model. 
+
+### All interventions in on sight
+
+Since there are 18 different parametere sets in the kinetic model, ANOVA is provide a more reasonable comparison of the outputs of the kinetic model. The following script generates all the interventions that were mapped to the kinetic model:
+
+```
+load('./Results/First_Order_Core.mat')
+%selection of second order OptForce rxns that are in core model
+load('./Results/Second_Order_Core.mat')
+%selection of third order OptForce rxns that are in core model
+load('./Results/Third_Order_Core.mat')
+
+load('./Results/First_Order_results.mat')
+%selection of second order OptForce rxns that are in core model
+load('./Results/Second_Order_results.mat')
+%selection of third order OptForce rxns that are in core model
+load('./Results/Third_Order_results.mat')
+for i=1:3
+    
+    First_order_results(:,27,i)= Base_BDOH';
+    Second_order_results(:,27,i)=Base_BDOH';
+    Third_order_results(:,27,i)=Base_BDOH';
+
+end
+
+```
+For First order interventions: 
+
+**Heatmaps
+
+```
+
+First_order_Rxn = model.rxns(First_Order_Core(:,1));
+First_order_Intervent = First_Order_Core(:,2)';
+First_order_Rxn = [First_order_Rxn;{'WT'}]
+First_order_Intervent = [First_order_Intervent 0]
+%clear 
+clf
+subplot(2,1,1)
+h1 = heatmap(First_order_results(:,:,3));
+h1.XDisplayLabels = First_order_Rxn;
+h1ip = get(h1,'InnerPosition');
+
+%Plot the type of intevention of each reaction suggested by Optforce
+subplot(2,1,2)
+h2 = heatmap(First_order_Intervent);
+h2.XDisplayLabels = First_order_Rxn;
+set(h2, 'InnerPosition', [h1ip(1) 0.45 h1ip(3)-0.055 0.025]); 
+
+```
+
+
 
