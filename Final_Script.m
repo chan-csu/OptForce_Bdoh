@@ -104,11 +104,11 @@ end
             
         
 %% First Order Interventions
-Upregulation_Vect=[1.1 1.3 1.5];
-Downregulation_Vect=[0.9 0.7 0.5];
+Upregulation_Vect=[1.3 1.7 2];
+Downregulation_Vect=[0.7 0.5 0.2];
 Knockout_Vect=[0 0 0];
 uptake_rxns = [1;2]; %[1 - CO Uptake; 2 - H2 Uptake]                        % INPUT elementary rxn index for uptake rxns constrained for DAE 
-uptake_values = [-18;-12 ];                                           % INPUT uptake fluxes for CO and H2 gases.  Current values are experimental values at high biomass concentration.
+uptake_values = [Uptakes.values{1};Uptakes.values{2} ];                                           % INPUT uptake fluxes for CO and H2 gases.  Current values are experimental values at high biomass concentration.
 
 perturbed_rxn = [1];                                                         % rxn # for enzyme to be changed; = [] if no enzyme change
 expression_level = [1];                                                      % = 1 if no enzyme change; = 0 if knockout; > 1 if overexpression; < 1 if underexpression
