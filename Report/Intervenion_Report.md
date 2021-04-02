@@ -198,3 +198,15 @@ set(h2, 'InnerPosition', [h1ip(1) 0.45 h1ip(3)-0.055 0.025]);
 
 ![First_Order_heatmap](https://github.com/chan-csu/OptForce_Bdoh/blob/master/Report/First_Order_Heatmap.jpg)
 
+From the heatmap 'PFOR' enzyme upregualtion seems like a candidate. To be more certain, the following block provides ANOVA test:
+
+```
+
+[p,tbl,stats] = anova1(First_order_results(:,:,3));
+[c,m,h,gnames] = multcompare(stats);
+
+```
+
+![First_Order_ANOVA](https://github.com/chan-csu/OptForce_Bdoh/blob/master/Report/ANOVA_First.jpg)
+
+As it can be seen, PFOR upregulation results in significantly higher bdoh production.
