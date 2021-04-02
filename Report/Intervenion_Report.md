@@ -117,4 +117,30 @@ ans =
         
         
 ```
+Both models provide reasonably well approximations. 
+
+The following block of code gives the highest bdoh production predicted by FBA:
+
+```
+MT=changeObjective(metaclau,'EX_BUTANEDIOL')
+solution=optimizeCbModel(MT,'max','one');
+MT_exports=solution.x(metaclau_Indices)
+table(metaclau.rxns(metaclau_Indices),MT_exports)
+
+ans =
+
+  7×2 table
+
+              Var1              MT_exports
+    ________________________    __________
+
+    {'EX_CARBON-MONOXIDE'  }     -20.042  
+    {'EX_CARBON-DIOXIDE'   }      1.0578  
+    {'EX_HYDROGEN-MOLECULE'}     -33.042  
+    {'EX_ACET'             }           0  
+    {'EX_ETOH'             }           0  
+    {'EX_BUTANEDIOL'       }      4.9485  
+    {'EX_BIOMASS'          }           0  
+
+```
 
