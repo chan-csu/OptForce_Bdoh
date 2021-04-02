@@ -143,4 +143,5 @@ ans =
     {'EX_BIOMASS'          }           0  
 
 ```
+This is the highest theoretical bdoh production with the same uptake rates. 
 
