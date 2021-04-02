@@ -43,7 +43,7 @@ t_interval = 0:5e2;                                                         % IN
 Kin_Model_Indices=[1 3 2 58 54 62 64 ]
 T=array2table(solutions(Kin_Model_Indices,:))
 T.Properties.RowNames=model.rxns(Kin_Model_Indices)
-
+Base_BDOH=solutions(62,:);
 
 %% bdoh maximizer mutant
 MT=changeObjective(metaclau,'EX_BUTANEDIOL')
@@ -51,5 +51,42 @@ solution=optimizeCbModel(MT,'max','one');
 MT_exports=solution.x(metaclau_Indices)
 table(metaclau.rxns(metaclau_Indices),MT_exports)
 
+%% Stat Analysis of the interventions
 
+%selection of first order OptForce rxns that are in core model
+load('./Results/First_Order_Core.mat')
+%selection of second order OptForce rxns that are in core model
+load('./Results/Second_Order_Core.mat')
+%selection of third order OptForce rxns that are in core model
+load('./Results/Third_Order_Core.mat')
+
+load('./Results/First_Order_results.mat')
+%selection of second order OptForce rxns that are in core model
+load('./Results/Second_Order_results.mat')
+%selection of third order OptForce rxns that are in core model
+load('./Results/Third_Order_results.mat')
+for i=1:3
+    
+    First_order_results(:,27,i)= Base_BDOH';
+    Second_order_results(:,27,i)=Base_BDOH';
+    Third_order_results(:,27,i)=Base_BDOH';
+
+end
+
+First_order_Rxn = model.rxns(First_Order_Core(:,1));
+First_order_Intervent = First_Order_Core(:,2)';
+First_order_Rxn = [First_order_Rxn;{'WT'}]
+First_order_Intervent = [First_order_Intervent 0]
+%clear 
+clf
+subplot(2,1,1)
+h1 = heatmap(First_order_results(:,:,3));
+h1.XDisplayLabels = First_order_Rxn;
+h1ip = get(h1,'InnerPosition');
+
+%Plot the type of intevention of each reaction suggested by Optforce
+subplot(2,1,2)
+h2 = heatmap(First_order_Intervent);
+h2.XDisplayLabels = First_order_Rxn;
+set(h2, 'InnerPosition', [h1ip(1) 0.45 h1ip(3)-0.055 0.025]); 
 
