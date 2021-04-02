@@ -10,6 +10,7 @@ The overall pipeline is as follows:
 ideal tools for examining these interventions since they are directly dealing with enzyme expression levels. Luckily, there was already a kinetic model available for C. autoethanogenum.
 
 * We used the following experimental condition for both metaclau, and the kinetic model:
+
 | Reference  | Addition experimental factor | 
 | :---------: | :-----------------------------: |
  qH2 (mmol/gCDW/h)	qAcet (mmol/gCDW/h)	qetoh (mmol/gCDW/h)	qBDO (mmol/gCDW/h)	(h-1)
