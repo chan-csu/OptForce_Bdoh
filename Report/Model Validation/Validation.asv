@@ -2,7 +2,7 @@ Metaclau=readCbModel('Metaclau.mat')
 iCLAU=readCbModel('iCLAU786_2018.xls')
 % Medium=
 
-%% Test 1 Flux Through ATPm with zero uptakes
+%% Test 1 Flux Through the network with zero Exchanges
 Meta_Exc=findExcRxns(Metaclau);
 Meta_Uptakes=find(Metaclau.lb(Meta_Exc)<0);
 Metaclau_Test1=changeRxnBounds(Metaclau,Metaclau.rxns(Meta_Exc),0,'b');
@@ -17,7 +17,7 @@ if isempty(Sol_Meta_T1.x~=0)
     disp('Metaclau passed Test 1')
     
 else
-    disp('Metaclau failed Test 1: The following reactions had non-zero fluxes:\n')
+    disp('Metaclau failed Test 1: The following reactions had non-zero fluxes:')
     fprintf('%s',Metaclau.rxns(find(Sol_Meta_T1.x~=0)))
 end
 
@@ -26,19 +26,25 @@ if isempty(Sol_i_T1.x~=0)
     disp('iCLAU passed Test 1')
     
 else
-    disp('iCLAU failed Test 1: The following reactions had non-zero fluxes:\n')
-    fprintf('%s',[iCLAU.rxns(find(Sol_i_T1.x~=0))])
+    disp('iCLAU failed Test 1: The following reactions had non-zero fluxes:')
+    fprintf('%s',iCLAU.rxnNames{find(Sol_i_T1.x~=0)})
+end
+
+%% Test 2 Flux Through ATPm with zero uptakes
+
+Metaclau_Test2=changeObjective(Metaclau_Test1,'ATPASE-RXN');
+Sol_Meta_T2=optimizeCbModel(Metaclau_Test2);
+
+if Sol_Meta_T2.f==0 | Sol_Meta_T2.origStat=='INFEASIBLE'
+    disp('Metaclau passed Test 2')
+    
+else
+    disp('Metaclau failed Test 2: Non-zero flux through ATPm')
 end
 
 
 
 
 
-%% Test 2
 
-
-
-
-
-
-%% 
+%% Test 3 Predicting the experimental data

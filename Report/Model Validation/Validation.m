@@ -1,5 +1,5 @@
-Metaclau=readCbModel('Metaclau.mat')
-iCLAU=readCbModel('iCLAU786_2018.xls')
+Metaclau=readCbModel('Metaclau.mat');
+iCLAU=readCbModel('iCLAU786_2018.xls');
 % Medium=
 
 %% Test 1 Flux Through the network with zero Exchanges
@@ -32,9 +32,24 @@ end
 
 %% Test 2 Flux Through ATPm with zero uptakes
 
+Metaclau_Test2=changeObjective(Metaclau_Test1,'ATPASE-RXN');
+Sol_Meta_T2=optimizeCbModel(Metaclau_Test2);
+
+if Sol_Meta_T2.f==0 | Sol_Meta_T2.origStat=='INFEASIBLE'
+    fprintf('\nMetaclau passed Test 2')
+    
+else
+    fprintf('\nMetaclau failed Test 2: Non-zero flux through ATPm')
+end
+
+iCLAU_Test2=changeObjective(iCLAU_Test1,'rxn00062_c0');
+Sol_i_T2=optimizeCbModel(iCLAU_Test2);
+if Sol_i_T2.f==0 | strcmp('INFEASIBLE',Sol_i_T2.origStat)
+    fprintf('\niclau passed Test 2')
+    
+else
+    fprintf('\niCLAU failed Test 2: Non-zero flux through ATPm')
+end
 
 
-
-
-
-%% Test 3 Matching the experimental data
+%% Test 3 Predicting the experimental data
