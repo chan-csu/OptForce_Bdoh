@@ -1,5 +1,5 @@
-Metaclau=readCbModel('Metaclau.mat')
-iCLAU=readCbModel('iCLAU786_2018.xls')
+Metaclau=readCbModel('Metaclau.mat');
+iCLAU=readCbModel('iCLAU786_2018.xls');
 % Medium=
 
 %% Test 1 Flux Through the network with zero Exchanges
@@ -36,15 +36,32 @@ Metaclau_Test2=changeObjective(Metaclau_Test1,'ATPASE-RXN');
 Sol_Meta_T2=optimizeCbModel(Metaclau_Test2);
 
 if Sol_Meta_T2.f==0 | Sol_Meta_T2.origStat=='INFEASIBLE'
-    disp('Metaclau passed Test 2')
+    fprintf('\nMetaclau passed Test 2')
     
 else
-    disp('Metaclau failed Test 2: Non-zero flux through ATPm')
+    fprintf('\nMetaclau failed Test 2: Non-zero flux through ATPm')
+end
+
+iCLAU_Test2=changeObjective(iCLAU_Test1,'rxn00062_c0');
+Sol_i_T2=optimizeCbModel(iCLAU_Test2);
+if Sol_i_T2.f==0 | strcmp('INFEASIBLE',Sol_i_T2.origStat)
+    fprintf('\niclau passed Test 2')
+    
+else
+    fprintf('\niCLAU failed Test 2: Non-zero flux through ATPm')
 end
 
 
-
-
-
-
 %% Test 3 Predicting the experimental data
+%Here we test against three different Experimental datasets
+EXP=readtable('Exp_Data.csv');
+%the following indicates indexing for exchange reaction in both models. The
+%order is the same as column order in 
+
+Metaclau_Inds=[779,782,781,784,789,788,790,771,786,787 ]
+
+
+
+
+
+

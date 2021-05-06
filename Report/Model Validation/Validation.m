@@ -53,3 +53,16 @@ end
 
 
 %% Test 3 Predicting the experimental data
+%Here we test against three different Experimental datasets
+EXP=readtable('Exp_Data.csv');
+%the following indicates indexing for exchange reaction in both models. The
+%order is the same as column order in 
+
+Metaclau_Inds=[779,782,781,784,780,798,789,788,790,771,786,787,849]
+iCLAU_Inds=[779,782,781,784,780,798,789,788,790,771,786,787,849]
+
+
+
+
+
+
