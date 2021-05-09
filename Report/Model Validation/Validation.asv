@@ -58,10 +58,37 @@ EXP=readtable('Exp_Data.csv');
 %the following indicates indexing for exchange reaction in both models. The
 %order is the same as column order in 
 
-Metaclau_Inds=[779,782,781,784,789,788,790,771,786,787 ]
+Metaclau_Inds=[779,782,781,784,780,798,789,788,790,771,786,787,849]
+iCLAU_Inds=[61,1008,852,100000,51,406,960,854,966,972,786,969,989]
+Metaclau_Test3=changeRxnBounds(Metaclau,Metaclau.rxns(Metaclau_Inds(1:6)),-1000,'l')
+iCLAU_Test3=changeRxnBounds(iCLAU,iCLAU.rxns([1 2 3 5 6]),-1000,'l')
+
+for i=1:size(EXP,2)
+    Temp_Meta=changeRxnBounds(Metaclau_Test3,Metaclau_Test3.rxns(Metaclau_Inds([7,9])),EXP{[1,3],i},'b')
+    Sol_Meta_3(i)=optimizeCbModel(Temp_Meta,'max','one');
+    Sim_Res_Meta(i,:)=Sol_Meta_3(i).x(Metaclau_Inds(1,10:13))
+    Temp_i=changeRxnBounds(iCLAU_Test3,iCLAU_Test3.rxns(iCLAU_Inds([7,9])),EXP{[1,3],i},'b')
+    Sol_i_3(i)=optimizeCbModel(Temp_i,'max','one');
+    Sim_Res_i(i,:)=Sol_i_3(i).x(iCLAU_Inds(10:13)')
+end
+    
 
 
 
-
-
-
+% 'R_cpd00009_ext_b' Phosphate exchange
+% 
+% R_cpd00013_ext_b   Ammonia Exchange
+% 
+% 'R_cpd00001_ext_b' Water               
+% 
+% 'R_cpd00011_ext_b' CO2 Exchange
+% 'cpd00067_ext_b' Proton Exchange
+% 'R_cpd00204_ext_b' CO Exchange
+% 'R_cpd11640_ext_b' H2 Exchange
+% 'R_cpd00363_ext_b' Ethanol Exchange
+% 'R_cpd00029_ext_b' Acetate exchange
+% 'R_cpd01947_ext_b' BDOH
+% 'R_cpd11416_ext_b' Biomass
+% 'cpd00239_ext_b' for H2S
+%     
+% No NIACIN 100000 as index
