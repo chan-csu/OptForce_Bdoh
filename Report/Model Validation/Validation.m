@@ -7,11 +7,11 @@ iCLAU=changeObjective(iCLAU,iCLAU.rxns(989));
 
 %% Test 1 Flux Through the network with zero Exchanges
 fprintf('-------***Test 1***-----------------\n')
-Meta_Exc=findExcRxns(Metaclau);
+Meta_Exc=find(findExcRxns(Metaclau));
 Meta_Uptakes=find(Metaclau.lb(Meta_Exc)<0);
 Metaclau_Test1=changeRxnBounds(Metaclau,Metaclau.rxns(Meta_Exc),0,'b');
 
-i_Exc=findExcRxns(iCLAU);
+i_Exc=find(findExcRxns(iCLAU));
 i_Uptakes=find(iCLAU.lb(i_Exc)<0);
 iCLAU_Test1=changeRxnBounds(iCLAU,iCLAU.rxns(i_Exc),0,'b');
 Sol_Meta_T1=optimizeCbModel(Metaclau_Test1);
