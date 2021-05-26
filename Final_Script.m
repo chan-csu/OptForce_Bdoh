@@ -128,7 +128,9 @@ t_interval = 0:5e2;                                                         % IN
         expression_level);
            
 Base_BDOH=solutions(62,:);
-
+T=array2table(solutions);
+T.Properties.RowNames=model.rxns(:)
+writetable(T,'Kinetic_Model_Fluxes.xlsx','Sheet','Base','WriteRowNames',true)
 for i=1:size(First_Order_Core,1)
     for j=1:length(Upregulation_Vect)
         if First_Order_Core(i,2)==0
@@ -146,9 +148,12 @@ for i=1:size(First_Order_Core,1)
         t_interval, uptake_rxns, uptake_values, perturbed_rxn, ...
         expression_level);
         First_order_results(:,i,j)=solutions(62,:)
+        T=array2table(solutions);
+        T.Properties.RowNames=model.rxns(:)
+        writetable(T,'Kinetic_Model_Fluxes.xlsx','Sheet',strcat('First_order',num2str(i)),'WriteRowNames',true)
+
     end
 end
-
 for i=1:size(Second_Order_Core,1)
     for j=1:length(Upregulation_Vect)
         if Second_Order_Core(i,2)==0
@@ -177,6 +182,10 @@ for i=1:size(Second_Order_Core,1)
         t_interval, uptake_rxns, uptake_values, perturbed_rxn, ...
         expression_level);
         Second_order_results(:,i,j)=solutions(62,:)
+        T=array2table(solutions);
+        T.Properties.RowNames=model.rxns(:)
+        writetable(T,'Kinetic_Model_Fluxes.xlsx','Sheet',strcat('Second_order',num2str(i)),'WriteRowNames',true)
+
     end
 end
 
@@ -222,6 +231,11 @@ for i=1:size(Third_Order_Core,1)
         t_interval, uptake_rxns, uptake_values, perturbed_rxn, ...
         expression_level);
         Third_order_results(:,i,j)=solutions(62,:)
+        T=array2table(solutions);
+        T.Properties.RowNames=model.rxns(:)
+        writetable(T,'Kinetic_Model_Fluxes.xlsx','Sheet',strcat('Third_order',num2str(i)),'WriteRowNames',true)
+
+
     end
 end
      
