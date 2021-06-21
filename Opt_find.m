@@ -73,6 +73,8 @@ load 'Mapping vect.mat'
 %% OptForce 
 mustU = unique(union(mustUSet, mustUU));
 mustL = unique(union(mustLSet, mustLL));
+mustU=mustU(ismember(mustU,Mapping_Vect(:,1)));
+mustL=mustL(ismember(mustL,Mapping_Vect(:,1)));
 targetRxn = 'EX_BUTANEDIOL';
 biomassRxn = 'EX_BIOMASS';
 constrOpt = struct('rxnList', {{'EX_BIOMASS'}}, 'values', [0.1*Wild_Type.f]);
