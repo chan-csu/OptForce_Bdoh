@@ -76,10 +76,9 @@ mustL = unique(union(mustLSet, mustLL));
 targetRxn = 'EX_BUTANEDIOL';
 biomassRxn = 'EX_BIOMASS';
 constrOpt = struct('rxnList', {{'EX_BIOMASS'}}, 'values', [0.1*Wild_Type.f]);
-Excluded=Model.rxns(~ismember(Model.rxns,Mapping_Vect(:,1)))
 for i=1:3
 [optForceSets{i}, posOptForceSets{i}, typeRegOptForceSets{i}, flux_optForceSets{i}] = ...
-    optForce(Model, targetRxn, biomassRxn, mustU, mustL, minFluxesW, maxFluxesW, minFluxesM, maxFluxesM,'k',i,'nSets',100,'constrOpt', constrOpt,'excludedRxns',Excluded);
+    optForce(Model, targetRxn, biomassRxn, mustU, mustL, minFluxesW, maxFluxesW, minFluxesM, maxFluxesM,'k',i,'nSets',500,'constrOpt', constrOpt);
 end
 %% Showing the final results
 for i=1:3
