@@ -8,7 +8,7 @@ the files. This ReadMe file reflects the latest changes.*
 # Introduction
 
 This repository contains the work for predicting effective strategies for 2,3-Butanediol
-over production in C. autoethanogenum. First, a genome scale metabolic model is used to predict first, second, and third order strategies for 2,3-Butanediol over production. Then, these predictions are assessed using the existing kinetic ensemble model of C. autoethanogenum (Greene et al. 2019) to determine the most promising enzymes to target for improving 2,3-BDO production. "Final_Script.m" includes the whole pipeline, and it calls different functions, including the kinetic ensemble model.
+over production in C. autoethanogenum. First, a genome scale metabolic model is used to predict first, second, and third order strategies for 2,3-Butanediol over production. Then, these predictions are assessed using the existing kinetic ensemble model of C. autoethanogenum (Greene et al. 2019 [1]) to determine the most promising enzymes to target for improving 2,3-BDO production. "Final_Script.m" includes the whole pipeline, and it calls different functions, including the kinetic ensemble model.
 To reproduce all the results run "Final_Script.m".
 This will first run optForce to find the interventions. Then maps the interventions to the core network. Finally, it runs these interventions through the kinetic model by (Greene et al. 2019). The intermediates and the results are saved in "./Results/"
 To justify using the Metaclau (Norman e al., 2019) metabolic reconstruction, two GEMMs (Norman et al. 2019; Marcellin et al. 2016) were run on a test, and Metaclau did better on almost all the tests. The script and results of this analysis is reported in "./Report/"
@@ -32,7 +32,7 @@ To justify using metaclau, two GEMMs were run on a test, and metaclau did better
 
 # References
 
-1- Greene Jennifer, Daniell James, Kopke Michael, Broadbelt Linda, Tyo Keith E.J. (2019). Kinetic ensemble model of gas fermenting Clostridium autoethanogenum for improved ethanol production. Biochemical Engineering Journal. 148: 46-56. DOI: 10.1016/j.bej.2019.04.021.
+[1]- Greene Jennifer, Daniell James, Kopke Michael, Broadbelt Linda, Tyo Keith E.J. (2019). Kinetic ensemble model of gas fermenting Clostridium autoethanogenum for improved ethanol production. Biochemical Engineering Journal. 148: 46-56. DOI: 10.1016/j.bej.2019.04.021.
 
 2- Marcellin Esteban, Behrendorff James B., Nagaraju Shilpa, DeTissera Sashini, Segovia Simon et al. (2016). Low carbon fuels and commodity chemicals from waste gases – systematic approach to understand energy metabolism in a model acetogen. Green Chem. 18(10): 3020-3028. DOI: 10.1039/C5GC02708J. 
 
