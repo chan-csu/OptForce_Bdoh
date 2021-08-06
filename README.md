@@ -30,4 +30,10 @@ To justify using metaclau, two GEMMs were run on a test, and metaclau did better
 - Normalized_First, Second, and Third contains the kinetic model outputs for all interventions normalized by wildtype fluxes.
 - MustL, MustLL, MustU, MustUL, MustUU are the outputs of optForce.
 
+# References
+
+1- Greene Jennifer, Daniell James, Kopke Michael, Broadbelt Linda, Tyo Keith E.J. (2019). Kinetic ensemble model of gas fermenting Clostridium autoethanogenum for improved ethanol production. Biochemical Engineering Journal. 148: 46-56. DOI: 10.1016/j.bej.2019.04.021.
+
+2- Marcellin Esteban, Behrendorff James B., Nagaraju Shilpa, DeTissera Sashini, Segovia Simon et al. (2016). Low carbon fuels and commodity chemicals from waste gases – systematic approach to understand energy metabolism in a model acetogen. Green Chem. 18(10): 3020-3028. DOI: 10.1039/C5GC02708J. 
+
 
