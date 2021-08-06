@@ -8,10 +8,11 @@ the files. This ReadMe file reflects the latest changes.*
 # Introduction
 
 This repository contains the work for predicting effective strategies for 2,3-Butanediol
-over production in C. autoethanogenum. First, a genome scale metabolic model is used to predict first, second, and third order strategies for 2,3-Butanediol over production. Then, these predictions are assessed using the existing kinetic ensemble model of C. autoethanogenum (Greene et al. 2019 [1]) to determine the most promising enzymes to target for improving 2,3-BDO production. "Final_Script.m" includes the whole pipeline, and it calls different functions, including the kinetic ensemble model.
+over production in C. autoethanogenum. First, a genome scale metabolic model is used to predict first, second, and third order strategies for 2,3-Butanediol over production. Then, these predictions are assessed using the existing kinetic ensemble model of C. autoethanogenum [1] to determine the most promising enzymes to target for improving 2,3-BDO production. "Final_Script.m" includes the whole pipeline, and it calls different functions, including the kinetic ensemble model.
 To reproduce all the results run "Final_Script.m".
-This will first run optForce to find the interventions. Then maps the interventions to the core network. Finally, it runs these interventions through the kinetic model by (Greene et al. 2019). The intermediates and the results are saved in "./Results/"
-To justify using the Metaclau (Norman e al., 2019) metabolic reconstruction, two GEMMs (Norman et al. 2019; Marcellin et al. 2016) were run on a test, and Metaclau did better on almost all the tests. The script and results of this analysis is reported in "./Report/"
+
+This will first run optForce to find the interventions. Then maps the interventions to the core network. Finally, it runs these interventions through the kinetic model by [1]. The intermediates and the results are saved in "./Results/"
+To justify using the Metaclau [2] metabolic reconstruction, two GEMMs (Norman et al. 2019; Marcellin et al. 2016) were run on a test, and Metaclau did better on almost all the tests. The script and results of this analysis is reported in "./Report/"
 
 
 To reproduce all the results run "Final_Script.m"
