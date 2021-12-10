@@ -26,11 +26,13 @@ To justify using metaclau, two GEMMs were run on a test, and metaclau did better
 - Normalized_First, Second, and Third contains the kinetic model outputs for all interventions normalized by wildtype fluxes.
 - MustL, MustLL, MustU, MustUL, MustUU are the outputs of optForce.
 
-**In Response to the reviewrs two more analysis were added to the paper:
-1- How would the flux distribution change by changing H2 uptake and holding CO uptake constant.
-2- How would the flux distribution change if higher perturbation levels are tested. 
+**In Response to the reviewrs two more analysis were added to the paper:**
+
+1- How would the flux distribution change by changing H2 uptake and holding CO uptake constant.(/Results/H2_Var/)
+
+2- How would the flux distribution change if higher perturbation levels are tested.(/Results/Higher_Pert_Results/)
+
 Both analyses are included in the results directory
-**
 
 # References
 
