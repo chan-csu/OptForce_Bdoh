@@ -98,9 +98,9 @@ for i=1:17
         Sim_Res_i(i,:)=Sol_i_3(i).x(iCLAU_Inds(10:13)');
     end
 end
-Sim_Res_Meta(NaN_Inds,:)=[]
-Sim_Res_i(NaN_Inds,:)=[]
-EXP(NaN_Inds,:)=[]
+Sim_Res_Meta(NaN_Inds,:)=[];
+Sim_Res_i(NaN_Inds,:)=[];
+EXP(NaN_Inds,:)=[];
 fprintf('\n-------***Test 3***-----------------\n')
 fprintf('The norm of difference between Predicted data and experimental data for Metaclau is: %s \n ',norm(Sim_Res_Meta-table2array(EXP(:,4:end))))
 fprintf('\nThe norm of difference between Predicted data and experimental data for iCLAU is: %s ',norm(Sim_Res_i-table2array(EXP(:,4:end))))
