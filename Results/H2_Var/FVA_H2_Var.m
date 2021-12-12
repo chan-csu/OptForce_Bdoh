@@ -10,7 +10,7 @@ Metaclau=changeRxnBounds(Metaclau,Metaclau.rxns(789),Uptakes.values{1});
 Metaclau.rxns(find(Metaclau.c))
 inds=[788,771,772,790,786,787,849]
 i=1;
-for Hyd_Ups=0:-0.5:-100
+for Hyd_Ups=0:-0.5:-50
     Temp_Meta=changeRxnBounds(Metaclau,'EX_HYDROGEN-MOLECULE',Hyd_Ups,'l')
     [min,max]=fluxVariability(Temp_Meta, 'optPercentage', 75, 'allowLoops',1,'printLevel',2,'rxnNameList',Temp_Meta.rxns(inds),'method','1-norm');
     Min_Sol(:,i)=min;
@@ -21,7 +21,7 @@ end
 
 for J=1:size(Min_Sol,1)
     subplot(size(Min_Sol,1),1,J)
-    plot(-0:-0.5:-100,Min_Sol(J,:),'.',0:-0.5:-100,Max_Sol(J,:),'.')
+    plot(-0:-0.5:-50,Min_Sol(J,:),'.',0:-0.5:-50,Max_Sol(J,:),'.')
     legend({'Min','Max'})
     title(regexprep(Metaclau.rxns(inds(J)),'_','-'))
     xlabel('Hydrogen Uptake Flux')
