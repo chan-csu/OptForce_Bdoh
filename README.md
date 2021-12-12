@@ -18,13 +18,21 @@ To justify using metaclau, two GEMMs were run on a test, and metaclau did better
 
 
 ./Results/ include the following:
-
+  
 - First, Second, and Third_Order_Results. This is the result of kinetic model with three level of perturbation.
 - First, Second, and Third_Order_Core. Which include information about the mapped intervention containing the index of the target reaction(s) and their type of regulation (Knockout-0, Upregulation-2, Downregulation-1).
 - Base_bdoh is the flux in wildtype by kinetic model for all 18 set of parameters
 - Latest_Workspace includes the variables in the workspace after running Final_Script so you don't have to wait to reproduce the results.
 - Normalized_First, Second, and Third contains the kinetic model outputs for all interventions normalized by wildtype fluxes.
 - MustL, MustLL, MustU, MustUL, MustUU are the outputs of optForce.
+
+**In Response to the reviewers two more analysis were added to the paper:**
+
+1- How would the flux distribution change by changing H2 uptake and holding CO uptake constant.(/Results/H2_Var/)
+
+2- How would the flux distribution change if higher perturbation levels are tested.(/Results/Higher_Pert_Results/)
+
+Both analyses are included in the results directory
 
 # References
 

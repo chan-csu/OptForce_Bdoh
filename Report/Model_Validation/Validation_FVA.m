@@ -12,6 +12,7 @@ iCLAU=changeObjective(iCLAU,iCLAU.rxns(989));
 % Medium=
 
 %% Test 1 Flux Through the network with zero Exchanges
+clc
 fprintf('-------***Test 1***-----------------\n')
 Meta_Exc=findExcRxns(Metaclau);
 Meta_Uptakes=find(Metaclau.lb(Meta_Exc)<0);
@@ -65,7 +66,7 @@ end
 
 %% Test 3 Predicting the experimental data
 %Here we test against three different Experimental datasets
-EXP=readtable('Exp_Data.csv');
+EXP=readtable('Exp_Data.csv','TreatAsEmpty',{'NA'});
 %the following indicates indexing for exchange reaction in both models. The
 %order is the same as column order in 
 
@@ -75,13 +76,13 @@ Metaclau_Test3=changeRxnBounds(Metaclau,Metaclau.rxns(Meta_Uptakes),-1,'l');
 Metaclau_Test3=changeRxnBounds(Metaclau_Test3,Metaclau.rxns(Metaclau_Inds(1:6)),-1000,'l');
 iCLAU_Test3=changeRxnBounds(iCLAU,iCLAU.rxns(i_Uptakes),-1,'l');
 iCLAU_Test3=changeRxnBounds(iCLAU_Test3,iCLAU.rxns(iCLAU_Inds([1 2 3 5 6])),-1000,'l');
-NaN_Inds=find(any(isnan(table2array(EXP)), 2))'
+NaN_Inds=find(any(isnan(table2array(EXP)), 2))';
 for i=1:17
     Temp_Meta=changeRxnBounds(Metaclau_Test3,Metaclau_Test3.rxns(Metaclau_Inds([7:9])),EXP{i,[1:3]},'b');
     tmp=optimizeCbModel(Temp_Meta,'max','one');  
     if tmp.f == 0 | strcmp('INFEASIBLE',tmp.origStat)
         Sim_Res_Meta(i,:)= [0 0 0 0];
-        NaN_Inds=[NaN_Inds i]
+        NaN_Inds=[NaN_Inds i];
     else
         Sol_Meta_3(i)=optimizeCbModel(Temp_Meta,'max','one');
         Sim_Res_Meta(i,:)=Sol_Meta_3(i).x(Metaclau_Inds(1,10:13));
@@ -91,15 +92,15 @@ for i=1:17
     tmp=optimizeCbModel(Temp_i,'max','one');
     if tmp.f==0 | strcmp('INFEASIBLE',tmp.origStat)
         Sim_Res_i(i,:)= [NaN NaN NaN NaN];
-        NaN_Inds=[NaN_Inds i]
+        NaN_Inds=[NaN_Inds i];
     else
         Sol_i_3(i)=optimizeCbModel(Temp_i,'max','one');
         Sim_Res_i(i,:)=Sol_i_3(i).x(iCLAU_Inds(10:13)');
     end
 end
-Sim_Res_Meta(NaN_Inds,:)=[]
-Sim_Res_i(NaN_Inds,:)=[]
-EXP(NaN_Inds,:)=[]
+Sim_Res_Meta(NaN_Inds,:)=[];
+Sim_Res_i(NaN_Inds,:)=[];
+EXP(NaN_Inds,:)=[];
 fprintf('\n-------***Test 3***-----------------\n')
 fprintf('The norm of difference between Predicted data and experimental data for Metaclau is: %s \n ',norm(Sim_Res_Meta-table2array(EXP(:,4:end))))
 fprintf('\nThe norm of difference between Predicted data and experimental data for iCLAU is: %s ',norm(Sim_Res_i-table2array(EXP(:,4:end))))
